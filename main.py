@@ -49,6 +49,9 @@ def main() -> None:
     gate(REVIEW)
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(REVIEW, encoding="utf-8")
+    # Read-back verification: what landed on disk is exactly the review.
+    if OUTPUT_PATH.read_text(encoding="utf-8") != REVIEW:
+        raise ValueError("read-back mismatch: written review differs from REVIEW")
     print(f"Wrote {len(REVIEW)} characters to {OUTPUT_PATH}")
 
 
